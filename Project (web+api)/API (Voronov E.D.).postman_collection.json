@@ -1,0 +1,2081 @@
+{
+	"info": {
+		"_postman_id": "992c513f-f8a6-44ed-8080-46a8c5cf6e97",
+		"name": "API coursework (QA-33/Voronov E.D.)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21762761"
+	},
+	"item": [
+		{
+			"name": "Авторизация (выполнить до работы с проектом)",
+			"item": [
+				{
+					"name": "Получение csrf (Авторизация шаг 1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const $ = cheerio.load(pm.response.text());\r",
+									"var csrfToken =  $('.authentication-page__form.authentication-form.js-username-password-form>input[type=\"hidden\"][name=\"csrfToken\"]')[0].attribs.value;\r",
+									"pm.collectionVariables.set(\"csrfToken\", csrfToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLauthorization}}",
+							"host": [
+								"{{URLauthorization}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login-submit (Авторизация шаг 2)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "csrfToken",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "csrfToken",
+									"value": "{{csrfToken}}",
+									"type": "text"
+								},
+								{
+									"key": "redirect",
+									"value": "https://new-teachers.skyeng.ru/",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "test-mobile1@skyeng.ru",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Abc12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URLsubmit}}",
+							"host": [
+								"{{URLsubmit}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "получаем global_token (Авторизация шаг 3)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "global_id",
+								"value": "{{global_id}}",
+								"type": "text"
+							},
+							{
+								"key": "session_global",
+								"value": "{{session_global}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://id.skyeng.ru/user-api/v1/auth/jwt",
+							"protocol": "https",
+							"host": [
+								"id",
+								"skyeng",
+								"ru"
+							],
+							"path": [
+								"user-api",
+								"v1",
+								"auth",
+								"jwt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Персональные события",
+			"item": [
+				{
+					"name": "Временные рамки (настоящее/прошлое/будущее)",
+					"item": [
+						{
+							"name": "Создание персонального события в настоящем (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"newrealId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"newrealAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"описательное описание\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события в настоящем (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{newrealId}},\r\n  \"startAt\": \"{{newrealAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события за прошедший период (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"pastrealId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"pastrealAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#FFFF00\",\"color\":\"#00FF00\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2022-12-07T15:00:00+03:00\",\"endAt\":\"2022-12-07T15:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события  за прошлый период (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{pastrealId}},\r\n  \"startAt\": \"{{pastrealAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события в будущем (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"futurerealId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"futurerealAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"описательное описание\",\"title\":\"zadacha\",\"startAt\":\"2023-03-07T19:00:00+03:00\",\"endAt\":\"2023-03-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события  в будущем (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{futurerealId}},\r\n  \"startAt\": \"{{futurerealAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события (+ 1 год и более)(Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"плюс 1 год даты\",\"title\":\"zadacha\",\"startAt\":\"2024-02-06T19:00:00+03:00\",\"endAt\":\"2024-02-06T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Некорректные даты события",
+					"item": [
+						{
+							"name": "Создание персонального события с несуществующей датой (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"несуществующая дата\",\"title\":\"zadacha\",\"startAt\":\"2023-01-33T19:00:00+03:00\",\"endAt\":\"2023-01-33T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события без даты (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"без даты\",\"title\":\"zadacha\",\"startAt\":\"\",\"endAt\":\"\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Продолжительность события (длительность)",
+					"item": [
+						{
+							"name": "Создание персонального события длительностью 25 минут (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"longoneId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"longoneAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:25:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события длительностью 25 минут (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{longoneId}},\r\n  \"startAt\": \"{{longoneAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события длительностью 35 минут (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"longtwoId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"longtwoAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:35:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события длительностью 35 минут (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{longtwoId}},\r\n  \"startAt\": \"{{longtwoAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события длительностью 2,5 часа (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"longthreeId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"longthreeAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T21:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события длительностью 2,5 часа (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{longthreeId}},\r\n  \"startAt\": \"{{longthreeAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события длительностью 9ч 40м (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"longfourId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"longfourAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T12:00:00+03:00\",\"endAt\":\"2023-01-07T21:40:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события длительностью 9ч 40м (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{longfourId}},\r\n  \"startAt\": \"{{longfourAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Цвет события",
+					"item": [
+						{
+							"name": "Создание персонального события c цветом отличным от стандартного (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"colorId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"colorAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#FFFF00\",\"color\":\"#00FF00\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события разного цвета (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{colorId}},\r\n  \"startAt\": \"{{colorAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события без цвета (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"\",\"color\":\"\",\"description\":\"без цвета\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Наименование события",
+					"item": [
+						{
+							"name": "Создание персонального события с пустым наименованием(Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"описательное описание\",\"title\":\"\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события (кирилица и латиница в наименовании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"kirlatId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"kirlatAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"описательное описание\",\"title\":\"кирилицаlatinica\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события (кирилица и латиница в наименовании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{kirlatId}},\r\n  \"startAt\": \"{{kirlatAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события  (число , пробел и спецсимвол в наименовании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"simvolId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"simvolAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"описательное описание\",\"title\":\"Задача 77!!\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события (число , пробел и спецсимвол в наименовании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{simvolId}},\r\n  \"startAt\": \"{{simvolAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события  (> 40 символов в наименовании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"описательное описание\",\"title\":\"Значимость этих проблем настолько очевидна, что новая модель организационной деятельности позволяет выполнять важные задания по разработке форм развития. Повседневная практика показывает, что постоянный количественный рост и сфера нашей активности требуют определения и уточнения соответствующий условий активизации.\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Описание события",
+					"item": [
+						{
+							"name": "Создание персонального события  без описания (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"nodescrId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"nodescrAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события без описания (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{nodescrId}},\r\n  \"startAt\": \"{{nodescrAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события  (кирилица, латиница и спец символы в описании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"kirdescrId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"kirdescrAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"кирилlatin!%&\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события (кирилица, латиница и спец символы в описании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{kirdescrId}},\r\n  \"startAt\": \"{{kirdescrAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события  (>500 символов в описании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"Равным образом сложившаяся структура организации требуют определения и уточнения системы обучения кадров, соответствует насущным потребностям. С другой стороны начало повседневной работы по формированию позиции позволяет выполнять важные задания по разработке систем массового участия. С другой стороны рамки и место обучения кадров обеспечивает широкому кругу (специалистов) участие в формировании новых предложений. Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности влечет за собой процесс внедрения и модернизации форм развития. Значимость этих проблем настолько очевидна, что постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение новых предложений.\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Создание персонального события  (картинка как ссылка в описании) (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"pictureId\", pm.response.json().data.payload.id);\r",
+											"pm.collectionVariables.set(\"pictureAT\", pm.response.json().data.startAt);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"backgroundColor\":\"#F4F5F6\",\"color\":\"#81888D\",\"description\":\"{{$randomAbstractImage}}\",\"title\":\"zadacha\",\"startAt\":\"2023-01-07T19:00:00+03:00\",\"endAt\":\"2023-01-07T19:30:00+03:00\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}createPersonal",
+									"host": [
+										"{{URL}}createPersonal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Удаление персонального события (картинка как ссылка в описании) (Voronov E.D.) Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{pictureId}},\r\n  \"startAt\": \"{{pictureAT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}removePersonal",
+									"host": [
+										"{{URL}}removePersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Редактирование события",
+					"item": [
+						{
+							"name": "Редактирование персонального события (Voronov E.D.)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{token_global}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"backgroundColor\": \"#F4F5F6\",\r\n  \"color\": \"#81888D\",\r\n  \"description\": \"\",\r\n  \"title\": \"sobitie 25\",\r\n  \"startAt\": \"2022-12-26T19:00:00+03:00\",\r\n  \"endAt\": \"2022-12-26T20:30:00+03:00\",\r\n  \"id\": 3919409,\r\n  \"oldStartAt\": \"2022-12-26T19:00:00+03:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}updatePersonal",
+									"host": [
+										"{{URL}}updatePersonal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Отображение личных событий в расписании (Voronov E.D.)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{token_global}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"from\":\"2023-01-02T00:00:00+03:00\",\"till\":\"2023-01-09T00:00:00+03:00\",\"onlyTypes\":[]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}events",
+							"host": [
+								"{{URL}}events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Работа с уроками (для регресса)",
+			"item": [
+				{
+					"name": "Создание урока (Voronov E.D.)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{token_global}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"educationServiceId\":13826893,\"type\":\"regular\",\"startAt\":\"2023-01-15T21:00:00+03:00\",\"isCompensatory\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}createClass",
+							"host": [
+								"{{URL}}createClass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отмена урока (Voronov E.D.)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{token_global}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"virtualClassId\":\"S68311139\",\"initiator\":\"teacher\",\"reason\":6,\"comment\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}cancelClass",
+							"host": [
+								"{{URL}}cancelClass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Перенос урока (Voronov E.D.)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{token_global}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"virtualClassId\":\"R5408157-1673805600\",\"newStartAt\":\"2023-01-15T14:00:00+03:00\",\"initiator\":2,\"reason\":999,\"comment\":\"надо\",\"isMoveRegular\":false}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}moveClass",
+							"host": [
+								"{{URL}}moveClass"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://api-teachers.skyeng.ru/v2/schedule/",
+			"type": "string"
+		},
+		{
+			"key": "URLauthorization",
+			"value": "https://id.skyeng.ru/login?redirect=http://teachers.skyeng.ru",
+			"type": "string"
+		},
+		{
+			"key": "token_global",
+			"value": "token_global=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VySWQiOjEwMzM4NzM2LCJpZGVudGl0eSI6InRlc3QtbW9iaWxlMUBza3llbmcucnUiLCJpZGVudGl0eUxvZ2luIjpudWxsLCJpZGVudGl0eUVtYWlsIjoidGVzdC1tb2JpbGUxQHNreWVuZy5ydSIsImlkZW50aXR5UGhvbmUiOiIrNzkxMjI1MjUyNTIiLCJuYW1lIjoiXHUwNDFlXHUwNDNiXHUwNDM1XHUwNDMzIiwic3VybmFtZSI6Ilx1MDQxMFx1MDQzZDIiLCJlbWFpbCI6InRlc3QtbW9iaWxlMUBza3llbmcucnUiLCJ1aUxhbmd1YWdlIjoicnUiLCJsb2NhbGUiOiJydSIsInNlcnZpY2VMb2NhbGUiOm51bGwsInVhcyI6MzAsImp3dFR5cGUiOjEsImp0aSI6InFmQnNrN3Yxb3lVb2Z5SEhIZDVPd2NOaWZGcjhtMnA2IiwiYnJhbmQiOm51bGwsImV4cCI6MTY3MzY3MzI4NywiYXZhdGFyVXJsIjoiaHR0cHM6XC9cL2F1dGgtYXZhdGFycy1za3llbmcuaW1naXgubmV0XC8xMDMzODczNlwvNmEzZDhlOTgtYzZhMS00MWViLWI4ODgtNTBkMGYxOWYwMDA2P2F1dG89Zm9ybWF0JTJDZW5oYW5jZSZmaXQ9Y3JvcCZoPTIwMCZpeGxpYj1waHAtMi4xLjEmcT03NSZzYXQ9OCZzaGFycD0xMCZ2aWI9OCZ3PTIwMCIsImJpcnRoZGF5IjoiMTk4OC0wMy0wMSIsImFJc1N0cm9uZyI6dHJ1ZSwiYVR5cGUiOiJVU0VSTkFNRV9QQVNTV09SRCIsImFUaW1lIjoxNjczNTg2Njg0LCJyb2xlcyI6WyJST0xFX1RFQUNIRVIiLCJST0xFX0NSTTJfVEVBQ0hFUl9BQ0NFU1MiLCJST0xFX1RUQ19VU0FHRSIsIlJPTEVfVklNQk9YX1RFQUNIRVJfVVNBR0UiLCJST0xFX1ZJTUJPWF9DUkVBVEVfU0NSRUVOSU5HX1RFU1QiXX0.SELhw67D3r0Z1xNTWHmQSK6XH7EzW3mKaYpWnNa-D6y7_uxrYHbyu23vFx2npfTt6ti0ioIIHDvv6VUi_uxSlE4oRDG6G2cs8hr0e3gNjRjazzXeETz15pFJsmrGGqGcqVAznIVCfTuG8rdl3_flnzYFs822Kz-DSKSD9HQIbLB2Wsav4IaDegvTbA_wPPZmsLQR9TWVDMgvB-3qhnA7Cl9vRvpYMoxQv64wiiPqvGPqzP1zKiHcOY7B0llPR8K8Ocu3LiO9c5zEUMdXljylWnHYRDdrzUYA87NpENKs7tZFKXuoWKce66mYjF9SBYeAWqQ-ZdK6K6c2O6cLgpY9w-RvNr3thQgnMmPbEHojbwexHKJdONrXOk0F3Q6HWvezJhB2rS7yrTNFmDsefNc4wUNLbOTed29xhuAIGhvW6pjjgBcyqkASoKqBvsa0jHnetooiPJHgf_iAIqRfjEoBkCvH-HvabpLMmK57j8K8XlWWvRw3lTGWIq5IwLt1H_5Gq--WhmOrW8mQW7BwnvShj9qOdWVKpGwD4jOIX3oLGi9GH6KPQsYMYz69_RDr_sOpW8mvz_qhi8UprcyuESpiByb2V6r_mMlkZEtgFLl4EF08uRwiigiqNR0LFrVgm2EWixDWrzRfCfL3SqetFiPRplSsCuTI1lqxjYH_YCJ6yOo; expires=Sat, 14-Jan-2023 05:14:47 GMT; Max-Age=86400; path=/; domain=skyeng.ru; secure; samesite=lax",
+			"type": "string"
+		},
+		{
+			"key": "newrealId",
+			"value": 36032267
+		},
+		{
+			"key": "newrealAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "pastrealId",
+			"value": 36033019
+		},
+		{
+			"key": "pastrealAT",
+			"value": "2022-12-07T12:00:00+00:00"
+		},
+		{
+			"key": "futurerealId",
+			"value": 36033383
+		},
+		{
+			"key": "futurerealAT",
+			"value": "2023-03-07T16:00:00+00:00"
+		},
+		{
+			"key": "longoneId",
+			"value": 36035747
+		},
+		{
+			"key": "longoneAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "longtwoId",
+			"value": 36036079
+		},
+		{
+			"key": "longtwoAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "longthreeId",
+			"value": 36036472
+		},
+		{
+			"key": "longthreeAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "longfourId",
+			"value": 36036777
+		},
+		{
+			"key": "longfourAT",
+			"value": "2023-01-07T09:00:00+00:00"
+		},
+		{
+			"key": "colorId",
+			"value": 36037379
+		},
+		{
+			"key": "colorAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "kirlatId",
+			"value": 36038484
+		},
+		{
+			"key": "kirlatAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "simvolId",
+			"value": 36038843
+		},
+		{
+			"key": "simvolAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "nodescrId",
+			"value": 36039619
+		},
+		{
+			"key": "nodescrAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "kirdescrId",
+			"value": 36040059
+		},
+		{
+			"key": "kirdescrAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "pictureId",
+			"value": 36040776
+		},
+		{
+			"key": "pictureAT",
+			"value": "2023-01-07T16:00:00+00:00"
+		},
+		{
+			"key": "csrfToken",
+			"value": "c7d91c8563f15e4f0bb6.E0aDISiyvJxsIXRSbP2nIXiuy_5jXmE-JX7VbyhDQuA.ZDTla37YxvEWGT5rDrngZw_b-78GHA0Hbx-7IksQetYrBfVTZOjz-TZoHw",
+			"type": "string"
+		},
+		{
+			"key": "URLsubmit",
+			"value": "https://id.skyeng.ru/frame/login-submit",
+			"type": "string"
+		},
+		{
+			"key": "global_id",
+			"value": "global_id=YWVzLTEyOC1jYmM%3D.lbR9DzhFRrdJu8JMWELHdA%3D%3D.V6T8nCwCj8s%2BMsxS8Ju%2FxAm%2B%2BQP2iJGa90ReTHckAJk%3D; expires=Sun, 12-Jan-2025 05:11:24 GMT; Max-Age=63072000; path=/; domain=skyeng.ru; secure; httponly; samesite=lax",
+			"type": "string"
+		},
+		{
+			"key": "session_global",
+			"value": "session_global=alcr045k3bu09noff71v0vrgf3; expires=Sun, 12-Jan-2025 05:11:24 GMT; Max-Age=63072000; path=/; domain=skyeng.ru; secure; httponly; samesite=lax",
+			"type": "string"
+		}
+	]
+}
