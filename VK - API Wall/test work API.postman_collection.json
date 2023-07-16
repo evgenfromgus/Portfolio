@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "ad9bf2e0-c4e5-4800-90eb-afc6282ccb25",
+		"name": "test work API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21762761"
+	},
+	"item": [
+		{
+			"name": "Получаем список сообщений на стене",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/wall.get?access_token=vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw&v=5.131.",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"wall.get"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw"
+						},
+						{
+							"key": "v",
+							"value": "5.131."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получаем адрес для загрузки фото",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Upload_url\", pm.response.json().response.upload_url);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/photos.getWallUploadServer?access_token=vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw&v=5.131.",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"photos.getWallUploadServer"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw"
+						},
+						{
+							"key": "v",
+							"value": "5.131."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Передача файла фотографии",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"server\", pm.response.json().server);\r",
+							"pm.collectionVariables.set(\"photo\", pm.response.json().photo);\r",
+							"pm.collectionVariables.set(\"hash\", pm.response.json().hash);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/C:/Users/Хороший человек/Desktop/e5648c5143ee75dd222034206ac22dbc.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Upload_url}}",
+					"host": [
+						"{{Upload_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Сохранение фотографии",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"photo_id\", pm.response.json().response[0].id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/photos.saveWallPhoto?server={{server}}&photo={{photo}}&hash={{hash}}&access_token=vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw&v=5.131.",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"photos.saveWallPhoto"
+					],
+					"query": [
+						{
+							"key": "server",
+							"value": "{{server}}"
+						},
+						{
+							"key": "photo",
+							"value": "{{photo}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "access_token",
+							"value": "vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw"
+						},
+						{
+							"key": "v",
+							"value": "5.131."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавление сообщения с картинкой на свою стену",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"post_id\", pm.response.json().response.post_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/wall.post?owner_id={{owner_id}}&friends_only=0&from_group=0&message=opa new post&attachments=photo{{owner_id}}_{{photo_id}}&access_token=vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw&v=5.131.",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"wall.post"
+					],
+					"query": [
+						{
+							"key": "owner_id",
+							"value": "{{owner_id}}"
+						},
+						{
+							"key": "friends_only",
+							"value": "0"
+						},
+						{
+							"key": "from_group",
+							"value": "0"
+						},
+						{
+							"key": "message",
+							"value": "opa new post"
+						},
+						{
+							"key": "attachments",
+							"value": "photo{{owner_id}}_{{photo_id}}"
+						},
+						{
+							"key": "access_token",
+							"value": "vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw"
+						},
+						{
+							"key": "v",
+							"value": "5.131."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Просмотр созданного сообщения на стене",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/wall.getById?posts={{owner_id}}_{{post_id}}&access_token=vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw&v=5.131.",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"wall.getById"
+					],
+					"query": [
+						{
+							"key": "posts",
+							"value": "{{owner_id}}_{{post_id}}"
+						},
+						{
+							"key": "access_token",
+							"value": "vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw"
+						},
+						{
+							"key": "v",
+							"value": "5.131."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получаем список сообщений на стене (проверяем наличие нашего сообщения)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/wall.get?access_token=vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw&v=5.131.",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"wall.get"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "vk1.a.i_sbdhWku16XFMhWS1KSncDHW0R7G07BcrHirNu4gDRIYx1_oHGQlE41GEj9JV30NK0QW_f-p49dmHedLyGzPYCzhwsSXOHOyQnpZDekwh2-LHh4J5NP1LzC7nrnYlBdtdErvegUrsMVEs9rAEvDNB1tqfbvtx1ZJUZb0S6coTbjhoKBza-2Z2kKH9TN-uWeFzLbzExBOcXhYn2wkhg3Hw"
+						},
+						{
+							"key": "v",
+							"value": "5.131."
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Upload_url",
+			"value": "https://pu.vk.com/c521232/ss2215/upload.php?act=do_add&mid=785896186&aid=-14&gid=0&hash=3f57e91049dc7f79cc9d0f53f4b62d02&rhash=dd47690911b75228be8eb0a45e2eed92&swfupload=1&api=1&wallphoto=1"
+		},
+		{
+			"key": "server",
+			"value": 521232
+		},
+		{
+			"key": "photo",
+			"value": "[{\"markers_restarted\":true,\"photo\":\"188b71b075:x\",\"sizes\":[],\"latitude\":0,\"longitude\":0,\"kid\":\"6a4ca8f2e955a36a915aeb7146dd56c8\",\"sizes2\":[[\"s\",\"765da388390fdf4b07e82c1ef757523a4022afb7b0ef4e1a74482d7b\",\"6476475662000653032\",75,50],[\"m\",\"dbb53204e4b08df2622afd62ede47c94f3a96904f331c003f9637b08\",\"-5851839839336621325\",130,87],[\"x\",\"96cee3efdac2c7dae12067e56e0ffbab4c9cfefbce8b8f743b0c1ba4\",\"596460996483381988\",563,375],[\"o\",\"dbb53204e4b08df2622afd62ede47c94f3a96904f331c003f9637b08\",\"-5851839839336621325\",130,87],[\"p\",\"32808c28bcb35026d14574de76eae0ba329aa0385eaaa391960f313c\",\"4744238853615496852\",200,133],[\"q\",\"5ebffcbfe2a591416c3a8df367659f9d28a85dddf6918a74d1204e4c\",\"2288770043121762438\",320,213],[\"r\",\"ed091698064632a02c1c7e29c29ed43b2d8453fec030a8e7d2e67aad\",\"-431587397117958909\",510,340]],\"urls\":[],\"urls2\":[\"dl2jiDkP30sH6Cwe91dSOkAir7ew704adEgtew/6AID_kwQ4Vk.jpg\",\"27UyBOSwjfJiKv1i7eR8lPOpaQTzMcAD-WN7CA/85rcpasWyq4.jpg\",\"ls7j79rCx9rhIGflbg_7q0yc_vvOi490OwwbpA/5HrEuR0ORwg.jpg\",\"27UyBOSwjfJiKv1i7eR8lPOpaQTzMcAD-WN7CA/85rcpasWyq4.jpg\",\"MoCMKLyzUCbRRXTedurgujKaoDheqqORlg8xPA/lK5b7xns1kE.jpg\",\"Xr_8v-KlkUFsOo3zZ2WfnSioXd32kYp00SBOTA/hgDUUDpYwx8.jpg\",\"7QkWmAZGMqAsHH4pwp7UOy2EU_7AMKjn0uZ6rQ/A6U_iYyxAvo.jpg\"]}]"
+		},
+		{
+			"key": "hash",
+			"value": "330dd4e76320c6baf7c680593ac0a3f9"
+		},
+		{
+			"key": "owner_id",
+			"value": "785896186"
+		},
+		{
+			"key": "photo_id",
+			"value": 457239059
+		},
+		{
+			"key": "post_id",
+			"value": 25
+		}
+	]
+}
