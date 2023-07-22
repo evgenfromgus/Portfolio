@@ -7,7 +7,7 @@
 
 1. ### **Mobile App (Skyeng) Testing**
 
-<u>About:</u><br>
+<ins>About:</ins><br>
 Product - Skyeng mobile application.<br>
 Sections: “Situations”, “Video practice”.<br>
 
