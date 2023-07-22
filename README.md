@@ -8,7 +8,7 @@
 
 ***
 
-1. <u><h3>**Mobile App (Skyeng) Testing**</h3></u>
+1. ### **Mobile App (Skyeng) Testing**
 
 <u>About:</u><br>
 Product - Skyeng mobile application.<br>
@@ -39,7 +39,7 @@ sections “Situations” and “Video Practice”.
 <a href="https://sitechco.ru/" target="_blank" rel="noreferrer"> <img src="icon/sitechko.png" alt="miro" width="40" height="40"/> </a> 
 <a href="https://www.charlesproxy.com/" target="_blank" rel="noreferrer"> <img src="icon/charles_icon.svg" alt="miro" width="40" height="40"/> </a> 
 
-2. <u><h3>**Project (web+api)**</h3></u>
+2. ### **Project (web+api)**
 
 <u>About:</u><br>
 Product - Skyeng web application.<br>
@@ -67,7 +67,7 @@ Test the backend based on a functional checklist for personal events.
 <a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a> 
 <a href="https://www.atlassian.com/ru/software/jira" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original-wordmark.svg" alt="Jira" width="40" height="40"/> </a> 
 
-3. <u><h3>**Testovoe**</h3></u>
+3. ### **Testovoe**
 
 <u>About:</u><br>
 Testing tasks using various tools.<br>
@@ -93,7 +93,7 @@ Solve all tasks with a minimum of errors.
 <a href="https://docs.google.com/document/u/0/?hl=ru" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-docs.svg" alt="miro" width="40" height="40"/> </a>
 <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> 
 
-4. <u><h3>VK-API Wall</h3></u>
+4. ### **VK-API Wall**
 
 <u>About:</u><br>
 Product - VK web application.<br>
@@ -116,7 +116,7 @@ Compile a complete manual for working with the collection.
 <a href="https://vk.com" target="_blank" rel="noreferrer"> <img src="icon/vk-svgrepo-com.svg" alt="postman" width="40" height="40"/> </a> 
 <a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a>
 
-5. <u><h3>**Сheck-list, test case**</h3></u>
+5. ### **Сheck-list, test case**
 
 <u>About:</u><br>
 Test cases and checklists not included in projects.<br>
