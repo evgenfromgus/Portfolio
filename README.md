@@ -39,4 +39,31 @@ sections “Situations” and “Video Practice”.
 <a href="https://sitechco.ru/" target="_blank" rel="noreferrer"> <img src="icon/sitechko.png" alt="miro" width="40" height="40"/> </a> 
 <a href="https://www.charlesproxy.com/" target="_blank" rel="noreferrer"> <img src="icon/charles_icon.svg" alt="miro" width="40" height="40"/> </a> 
 
+2. <u><h3>**Project (web+api)**</h3></u>
+
+<u>About:</u><br>
+Product - Skyeng web application.<br>
+Sections: Teacher's personal account schedule.<br>
+
+<u>Description:</u><br>
+A new functionality has been added to the teachers' schedule - personal events.<br>
+It is necessary to test the backend based on a functional checklist for personal events.<br>
+For testing, the collection of requests in Postman was compiled.
+
+<u>Target:</u><br>
+Test the backend based on a functional checklist for personal events.
+
+<u>Testing types:</u><br> 
+- API testing.
+
+<u>Tools:</u><br>
+
+<a href="" target="_blank" rel="noreferrer"> <img src="icon/devtools.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://swagger.io/" target="_blank" rel="noreferrer"> <img src="icon/swagger-svgrepo-com.svg" alt="miro" width="40" height="40"/> </a>
+<a href="https://sitechco.ru/" target="_blank" rel="noreferrer"> <img src="icon/sitechko.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://app.qase.io/" target="_blank" rel="noreferrer"> <img src="icon/Qaseio.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://www.charlesproxy.com/" target="_blank" rel="noreferrer"> <img src="icon/charles_icon.svg" alt="miro" width="40" height="40"/> </a> 
+<a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> 
+<a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a> 
+<a href="https://www.atlassian.com/ru/software/jira" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original-wordmark.svg" alt="Jira" width="40" height="40"/> </a> 
 
