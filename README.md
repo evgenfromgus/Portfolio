@@ -116,7 +116,7 @@ Compile a complete manual for working with the collection.
 <a href="https://vk.com" target="_blank" rel="noreferrer"> <img src="icon/vk-svgrepo-com.svg" alt="postman" width="40" height="40"/> </a> 
 <a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a>
 
-5. ### ** Сheck-list, test case **
+5. <h3 style="font-weight: bold; text-decoration: underline;"> Сheck-list, test case </h3>
 
 <u>About:</u><br>
 Test cases and checklists not included in projects.<br>
