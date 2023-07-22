@@ -93,7 +93,7 @@ Solve all tasks with a minimum of errors.
 <a href="https://docs.google.com/document/u/0/?hl=ru" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-docs.svg" alt="miro" width="40" height="40"/> </a>
 <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> 
 
-4. <u><h3>**VK-API Wall**</h3></u>
+4. <u><h3>VK-API Wall</h3></u>
 
 <u>About:</u><br>
 Product - VK web application.<br>
