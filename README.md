@@ -92,3 +92,23 @@ Solve all tasks with a minimum of errors.
 <a href="https://www.google.com/intl/ru/sheets/about/" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-sheets.svg" alt="miro" width="40" height="40"/> </a>
 <a href="https://docs.google.com/document/u/0/?hl=ru" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-docs.svg" alt="miro" width="40" height="40"/> </a>
 <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> 
+
+4. <u><h3>**VK-API Wall**</h3></u>
+
+<u>About:</u><br>
+Product - VK web application.<br>
+Sections: Wall on home page.<br>
+
+<u>Description:</u><br>
+Solve the issue with authorization access for the collection of overgrowths.<br>
+Understand how to generate requests for the backend to add a picture to the wall.
+
+<u>Target:</u><br>
+Create a collection of requests in Postman to upload posts with a picture to the wall.<br>
+Compile a complete manual for working with the collection.
+
+<u>Tools:</u><br>
+
+<a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> 
+<a href="https://vk.com" target="_blank" rel="noreferrer"> <img src="icon/vk-svgrepo-com.svg" alt="postman" width="40" height="40"/> </a> 
+<a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a>
