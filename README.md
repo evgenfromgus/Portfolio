@@ -16,8 +16,7 @@ Sections: “Situations”, “Video practice”.<br>
 
 <u>Description:</u><br>
 Familiarize yourself with the requirements of the sections. Make checklists for them.<br>
-Write an informed choice of testing environment. Check the mobile application according to the documentation and change requests.<br>
-Compile a test report.<br>
+Write an informed choice of testing environment. Check the mobile application according to the documentation and change requests.Compile a test report.<br>
 
 <u>Target:</u><br>
 Provide information about the possibility of full use of the functionality
