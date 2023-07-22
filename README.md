@@ -107,6 +107,9 @@ Understand how to generate requests for the backend to add a picture to the wall
 Create a collection of requests in Postman to upload posts with a picture to the wall.<br>
 Compile a complete manual for working with the collection.
 
+<u>Testing types:</u><br> 
+- API testing.
+
 <u>Tools:</u><br>
 
 <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> 
