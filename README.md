@@ -67,3 +67,28 @@ Test the backend based on a functional checklist for personal events.
 <a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a> 
 <a href="https://www.atlassian.com/ru/software/jira" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original-wordmark.svg" alt="Jira" width="40" height="40"/> </a> 
 
+3. <u><h3>**Testovoe**</h3></u>
+
+<u>About:</u><br>
+Testing tasks using various tools.<br>
+
+<u>Description:</u><br>
+A complete description of the tasks is located in the project folder. 
+- Task 1 - Make a test plan and write a checklist for the Yandex mobile app Metro".<br>
+- Task 2 - Create a collection of requests in Postman for GitHub API issues.<br>
+- Task 3 - Create a checklist for collection requests from task 2.<br>
+- Task 4 - Write 3 SQL queries on 2 tables.<br>
+- Task 5 - Write E2E cases to be tested based on the state and transition diagram.
+- Task 6 - Answer the questions.
+
+<u>Target:</u><br>
+Solve all tasks with a minimum of errors.
+
+<u>Tools:</u><br>
+
+<a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a>
+<a href="https://sitechco.ru/" target="_blank" rel="noreferrer"> <img src="icon/sitechko.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> 
+<a href="https://www.google.com/intl/ru/sheets/about/" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-sheets.svg" alt="miro" width="40" height="40"/> </a>
+<a href="https://docs.google.com/document/u/0/?hl=ru" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-docs.svg" alt="miro" width="40" height="40"/> </a>
+<a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> 
