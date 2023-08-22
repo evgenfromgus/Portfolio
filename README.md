@@ -26,11 +26,12 @@ sections “Situations” and “Video Practice”.
 - Functional and research;
 - Testing interrupts;
 - Usability testing;
-- Testing localization and globalization.
+- Testing localization and globalization;
+- API testing.
 
 <ins>Tools:</ins><br>
 
-<a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a> 
+<a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a>
 <a href="https://www.atlassian.com/ru/software/jira" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original-wordmark.svg" alt="Jira" width="40" height="40"/> </a> 
 <a href="https://www.google.com/intl/ru/sheets/about/" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-sheets.svg" alt="miro" width="40" height="40"/> </a>
 <a href="https://sitechco.ru/" target="_blank" rel="noreferrer"> <img src="icon/sitechko.png" alt="miro" width="40" height="40"/> </a> 
@@ -113,7 +114,40 @@ Compile a complete manual for working with the collection.
 <a href="https://vk.com" target="_blank" rel="noreferrer"> <img src="icon/vk-svgrepo-com.svg" alt="postman" width="40" height="40"/> </a> 
 <a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a>
 
-5. ### **Сheck-list, test case**
+5. ### **Web and mobile apps**
+<ins>About:</ins><br>
+Product - Skyeng Web application for teachers.<br>
+Product - Skyeng Mobile application for students.<br>
+Sections: Video practice.<br>
+
+<ins>Description:</ins><br>
+Check the main functionality of the section separately and the integration of the mobile and web applications.<br>
+
+
+<ins>Target:</ins><br>
+Conduct functional testing, API testing, integration testing.<br> 
+Compile checklists. Compile bug reports, write application testing reports.<br>
+Compile a complete manual for working with the collection.<br>
+
+<ins>Testing types:</ins><br> 
+- Documentation testing;
+- Smoke testing;
+- Functional and research;
+- Testing interrupts;
+- Usability testing;
+- API testing.
+
+<ins>Tools:</ins><br>
+
+<a href="" target="_blank" rel="noreferrer"> <img src="icon/devtools.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://sitechco.ru/" target="_blank" rel="noreferrer"> <img src="icon/sitechko.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://app.qase.io/" target="_blank" rel="noreferrer"> <img src="icon/Qaseio.png" alt="miro" width="40" height="40"/> </a> 
+<a href="https://www.charlesproxy.com/" target="_blank" rel="noreferrer"> <img src="icon/charles_icon.svg" alt="miro" width="40" height="40"/> </a> 
+<a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> 
+<a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a> 
+<a href="https://www.atlassian.com/ru/software/jira" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original-wordmark.svg" alt="Jira" width="40" height="40"/> </a> 
+
+6. ### **Сheck-list, test case**
 
 <ins>About:</ins><br>
 Test cases and checklists not included in projects.<br>
