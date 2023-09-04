@@ -147,7 +147,25 @@ Compile a complete manual for working with the collection.<br>
 <a href="https://www.atlassian.com/software/confluence" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/confluence/confluence-original-wordmark.svg" alt="confluence" width="40" height="40"/> </a> 
 <a href="https://www.atlassian.com/ru/software/jira" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original-wordmark.svg" alt="Jira" width="40" height="40"/> </a> 
 
-6. ### **Сheck-list, test case**
+6. ### **SQL**
+<ins>About:</ins><br>
+Product - Database.<br>
+
+<ins>Description:</ins><br> 
+Using a ready-made database, queries of varying complexity were written to display information according to specified 
+criteria. In addition to the finished database, tables with data were created for subsequent work with them.<br>
+
+<ins>Target:</ins><br>
+To learn how to work with the database and write queries to obtain information on given conditions.
+
+
+<ins>Tools:</ins><br>
+
+<a href="https://dbeaver.io/" target="_blank" rel="noreferrer"> <img src="icon/DBeaver.svg" alt="dbeaver" width="40" height="40"/> </a> 
+<a href="https://docs.google.com/document/u/0/?hl=ru" target="_blank" rel="noreferrer"> <img src="icon/icons8-google-docs.svg" alt="miro" width="40" height="40"/> </a>
+
+
+7. ### **Сheck-list, test case**
 
 <ins>About:</ins><br>
 Test cases and checklists not included in projects.<br>
